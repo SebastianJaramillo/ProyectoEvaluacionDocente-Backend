@@ -48,4 +48,9 @@ public class FuncionController {
     public ResponseEntity<List<DocenteFuncion>> findByDocente(@PathVariable String id) {
         return ResponseEntity.ok().body(this.docenteFuncionService.findByDocente(id));
     }
+
+    @GetMapping("/{descripcion}/{rol}")
+    public ResponseEntity<Funcion> findByDescripcionRol(@PathVariable String descripcion, @PathVariable String rol) {
+        return ResponseEntity.ok().body(this.funcionService.findByDescripcionAndRol(descripcion, rol));
+    }
 }

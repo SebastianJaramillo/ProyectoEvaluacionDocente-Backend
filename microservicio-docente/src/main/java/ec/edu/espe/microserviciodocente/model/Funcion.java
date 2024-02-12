@@ -12,6 +12,9 @@ public class Funcion {
 	@Column(name = "func_id", nullable = false, length = 3)
 	private String id;
 
+    @Column(name = "func_rol")
+	private String rol;
+
     @Column(name = "func_descripcion")
 	private String descripcion;
 
@@ -37,6 +40,14 @@ public class Funcion {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     @Override

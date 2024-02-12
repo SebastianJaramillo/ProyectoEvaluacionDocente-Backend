@@ -14,7 +14,7 @@ public class Formulario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "form_id")
-	private long id;
+	private Long id;
 
 	@Column(name = "form_nombre", nullable = false, length = 50)
 	private String nombre;
@@ -25,17 +25,17 @@ public class Formulario {
 	public Formulario() {
 	}
 
-	public Formulario(long id, String nombre, String descripcion) {
+	public Formulario(Long id, String nombre, String descripcion) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

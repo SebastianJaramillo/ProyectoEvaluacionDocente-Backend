@@ -21,16 +21,26 @@ public class FuncionService {
     }
 
     public Iterable<Funcion> listAll() {
-        return funcionRepository.findAll();
+        return this.funcionRepository.findAll();
     }
 
     public Funcion findById(String id) {
-        Optional<Funcion> optionalFuncion = funcionRepository.findById(id);
+        Optional<Funcion> optionalFuncion = this.funcionRepository.findById(id);
 
         if (optionalFuncion.isPresent()) {
             return optionalFuncion.get();
         }
 
         throw new RuntimeException("Función con id: " + id + " no se encuentra.");
+    }
+
+    public Funcion findByDescripcionAndRol(String descripcion, String rol) {
+        Optional<Funcion> optionalFuncion = this.funcionRepository.findByDescripcionAndRol(descripcion, rol);
+
+        if (optionalFuncion.isPresent()) {
+            return optionalFuncion.get();
+        }
+
+        throw new RuntimeException("Función con descripcion: " + descripcion + " y rol: " + rol + " no existe.");
     }
 }

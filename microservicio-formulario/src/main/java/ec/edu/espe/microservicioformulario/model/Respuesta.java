@@ -15,7 +15,7 @@ public class Respuesta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "res_id")
-	private long id;
+	private Long id;
 
 	@Column(name = "res_texto")
 	private String texto;
@@ -26,6 +26,9 @@ public class Respuesta {
 	@Column(name = "doc_evaluado")
 	private String docEvaluado;
 
+	@Column(name = "eval_id")
+	private Long evalId;
+
 	@OneToOne
 	@JoinColumn(name = "pre_id", referencedColumnName = "pre_id", insertable = false, updatable = false)
 	private Pregunta pregunta;
@@ -33,19 +36,20 @@ public class Respuesta {
 	public Respuesta() {
 	}
 
-	public Respuesta(long id, String texto, String preId, String docEvaluado, Pregunta pregunta) {
+	public Respuesta(Long id, String texto, String preId, String docEvaluado, Long evalId, Pregunta pregunta) {
 		this.id = id;
 		this.texto = texto;
 		this.preId = preId;
 		this.docEvaluado = docEvaluado;
+		this.evalId = evalId;
 		this.pregunta = pregunta;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -81,6 +85,14 @@ public class Respuesta {
 		this.docEvaluado = docEvaluado;
 	}
 
+	public Long getEvalId() {
+		return evalId;
+	}
+
+	public void setEvalId(Long evalId) {
+		this.evalId = evalId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -101,5 +113,5 @@ public class Respuesta {
 		if (id != other.id)
 			return false;
 		return true;
-	}
+	}	
 }
