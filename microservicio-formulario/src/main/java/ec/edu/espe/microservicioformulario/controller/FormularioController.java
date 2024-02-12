@@ -1,4 +1,5 @@
 package ec.edu.espe.microservicioformulario.controller;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +27,7 @@ public class FormularioController {
     public ResponseEntity<Iterable<Formulario>> listAll() {
         return ResponseEntity.ok().body(this.formularioService.listAll());
     }
-    
+
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Formulario> findById(@PathVariable String id) {
         return ResponseEntity.ok().body(this.formularioService.findById(Long.parseLong(id)));
@@ -40,8 +41,13 @@ public class FormularioController {
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarById(@PathVariable String id) {
         this.formularioService.eliminarById(Long.parseLong(id));
-         return ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();
 
     }
-    
+
+    @GetMapping("/filtrar/{nombre}")
+    public ResponseEntity<Iterable<Formulario>> findByNombre(@PathVariable String nombre) {
+        Iterable<Formulario> formularios = formularioService.findByNombre(nombre);
+        return ResponseEntity.ok().body(formularios);
+    }
 }

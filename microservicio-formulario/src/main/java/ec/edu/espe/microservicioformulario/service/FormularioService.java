@@ -41,4 +41,8 @@ public class FormularioService {
             throw new RuntimeException("Formulario no encontrado con ID: " + id);
         }
     }
+
+    public Iterable<Formulario> findByNombre(String nombre) {
+        return formularioRepository.findByNombre(nombre);
+    }
 }
