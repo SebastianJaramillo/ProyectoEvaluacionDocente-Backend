@@ -53,4 +53,14 @@ public class FuncionController {
     public ResponseEntity<Funcion> findByDescripcionRol(@PathVariable String descripcion, @PathVariable String rol) {
         return ResponseEntity.ok().body(this.funcionService.findByDescripcionAndRol(descripcion, rol));
     }
+
+    @GetMapping("/descripcion/{descripcion}")
+    public ResponseEntity<List<Funcion>> findByDescripcion(@PathVariable String descripcion) {
+        return ResponseEntity.ok().body(this.funcionService.findByDescripcion(descripcion));
+    }
+
+    @GetMapping("/rol/{rol}")
+    public ResponseEntity<List<Funcion>> findByRol(@PathVariable String rol) {
+        return ResponseEntity.ok().body(this.funcionService.findByRol(rol));
+    }
 }

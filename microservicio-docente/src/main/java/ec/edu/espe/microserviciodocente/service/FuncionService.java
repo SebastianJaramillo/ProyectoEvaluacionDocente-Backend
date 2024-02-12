@@ -1,5 +1,6 @@
 package ec.edu.espe.microserviciodocente.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -42,5 +43,13 @@ public class FuncionService {
         }
 
         throw new RuntimeException("Función con descripcion: " + descripcion + " y rol: " + rol + " no existe.");
+    }
+
+    public List<Funcion> findByRol(String rol) {
+        return this.funcionRepository.findByRol(rol);
+    }
+
+    public List<Funcion> findByDescripcion(String descripcion) {
+        return this.funcionRepository.findByDescripcion(descripcion);
     }
 }
