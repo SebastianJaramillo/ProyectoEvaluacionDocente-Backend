@@ -13,12 +13,12 @@ private final UserRepository userRepository;
        
         User user = User.builder()
         .id(userRequest.id)
-        .firstname(userRequest.getFirstname())
-        .lastname(userRequest.lastname)
+        .nombres(userRequest.getNombres())
+        .apellidos(userRequest.getApellidos())
         .role(userRequest.getRole())
         .build();
         
-        userRepository.updateUser(user.id, user.firstname, user.lastname);
+        userRepository.updateUser(user.id, user.nombres, user.apellidos);
 
         return new UserResponse("El usuario se registró satisfactoriamente");
     }
@@ -31,8 +31,8 @@ private final UserRepository userRepository;
             UserDTO userDTO = UserDTO.builder()
             .id(user.id)
             .username(user.username)
-            .firstname(user.firstname)
-            .lastname(user.lastname)
+            .nombres(user.nombres)
+            .apellidos(user.apellidos)
             .role(user.role)
             .build();
             return userDTO;
@@ -48,8 +48,8 @@ private final UserRepository userRepository;
             UserDTO userDTO = UserDTO.builder()
             .id(user.id)
             .username(user.username)
-            .firstname(user.firstname)
-            .lastname(user.lastname)
+            .nombres(user.nombres)
+            .apellidos(user.apellidos)
             .role(user.role)
             .build();
             return userDTO;

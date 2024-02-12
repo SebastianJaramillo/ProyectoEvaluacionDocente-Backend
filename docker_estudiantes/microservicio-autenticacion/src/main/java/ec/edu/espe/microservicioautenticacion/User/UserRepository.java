@@ -11,7 +11,7 @@ public interface UserRepository extends JpaRepository<User,String>{
     Optional<User> findByUsername(String username); 
     
     @Modifying()
-    @Query("update User u set u.firstname=:firstname, u.lastname=:lastname where u.id = :id")
-    void updateUser(@Param(value = "id") String id,   @Param(value = "firstname") String firstname, @Param(value = "lastname") String lastname);
+    @Query("update User u set u.nombres=:nombres, u.apellidos=:apellidos where u.id = :id")
+    void updateUser(@Param(value = "id") String id,   @Param(value = "nombres") String nombres, @Param(value = "apellidos") String apellidos);
 
 }
