@@ -17,7 +17,12 @@ public class EvaluacionService {
     }
 
     public Evaluacion save(Evaluacion evaluacion) {
-        return this.evaluacionRepository.save(evaluacion);
+        try {
+            return this.evaluacionRepository.save(evaluacion);
+        } catch (Exception e) {
+            throw new RuntimeException("Evaluación con ID: " + evaluacion.getId() + " no se encuentra.");
+        }
+        
     }
 
     public Iterable<Evaluacion> listAll() {
@@ -42,5 +47,43 @@ public class EvaluacionService {
         }
 
         throw new RuntimeException("No se encontró evaluación en esta fecha actual");
+    }
+
+    public Evaluacion updateEstado(long id, String nuevoEstado) {
+        // Primero, encuentra la evaluación por ID
+        Optional<Evaluacion> evaluacionOptional = this.evaluacionRepository.findById(id);
+    
+        if (evaluacionOptional.isPresent()) {
+            Evaluacion evaluacion = evaluacionOptional.get();
+    
+            // Actualiza el estado de la evaluación
+            evaluacion.setEstado(nuevoEstado); // Asume que tienes un setter para el campo estado en tu entidad
+    
+            // Guarda la evaluación con el estado actualizado
+            return this.evaluacionRepository.save(evaluacion);
+        } else {
+            throw new RuntimeException("Evaluación con ID: " + id + " no se encuentra.");
+        }
+    }
+
+    public void eliminarById(Long id) {
+        if (this.evaluacionRepository.existsById(id)) {
+            this.evaluacionRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Formulario no encontrado con ID: " + id);
+        }
+    }
+    
+    public Evaluacion updateEvaluacion(Long id, Evaluacion evaluacionActualizada) {
+        Evaluacion evaluacion = evaluacionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Evaluacion con ID: " + id + " no se encuentra."));
+    
+        // Actualiza los campos de la evaluacion
+        evaluacion.setEvalFechaInicio(evaluacionActualizada.getEvalFechaInicio());
+        evaluacion.setEval_fecha_Fin(evaluacionActualizada.getEvalFechaFin());
+        evaluacion.setPerId(evaluacionActualizada.getPerId());
+        // Añade más campos según sea necesario
+    
+        return evaluacionRepository.save(evaluacion);
     }
 }
