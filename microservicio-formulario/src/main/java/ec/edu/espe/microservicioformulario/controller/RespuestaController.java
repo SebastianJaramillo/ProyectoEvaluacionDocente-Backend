@@ -1,4 +1,6 @@
 package ec.edu.espe.microservicioformulario.controller;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,5 +37,10 @@ public class RespuestaController {
     @PostMapping("/registro")
     public ResponseEntity<Iterable<Respuesta>> save(@RequestBody Iterable<Respuesta> respuestas) {
         return ResponseEntity.ok().body(this.respuestaService.save(respuestas));
+    }
+
+    @GetMapping("/resultados/{preId}/{docEvaluado}/{evalId}")
+    public ResponseEntity<List<Respuesta>> resultados(@PathVariable String preId, @PathVariable String docEvaluado, @PathVariable Long evalId) {
+        return ResponseEntity.ok().body(this.respuestaService.resultados(preId, docEvaluado, evalId));
     }
 }

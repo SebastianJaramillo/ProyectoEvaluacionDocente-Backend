@@ -1,7 +1,10 @@
 package ec.edu.espe.microservicioformulario.service;
 
+import java.util.List;
 import java.util.Optional;
+
 import org.springframework.stereotype.Service;
+
 import ec.edu.espe.microservicioformulario.model.Respuesta;
 import ec.edu.espe.microservicioformulario.repository.RespuestaRepository;
 
@@ -30,5 +33,9 @@ public class RespuestaService {
         }
 
         throw new RuntimeException("Respuesta con ID: " + id + " no se encuentra.");
+    }
+
+    public List<Respuesta> resultados(String preId, String docEvaluado, Long evalId) {
+        return this.respuestaRepository.findByPreIdStartingWithAndDocEvaluadoAndEvalId(preId, docEvaluado, evalId);
     }
 }

@@ -50,16 +50,13 @@ public class EvaluacionService {
     }
 
     public Evaluacion updateEstado(long id, String nuevoEstado) {
-        // Primero, encuentra la evaluación por ID
         Optional<Evaluacion> evaluacionOptional = this.evaluacionRepository.findById(id);
     
         if (evaluacionOptional.isPresent()) {
             Evaluacion evaluacion = evaluacionOptional.get();
     
-            // Actualiza el estado de la evaluación
-            evaluacion.setEstado(nuevoEstado); // Asume que tienes un setter para el campo estado en tu entidad
+            evaluacion.setEstado(nuevoEstado);
     
-            // Guarda la evaluación con el estado actualizado
             return this.evaluacionRepository.save(evaluacion);
         } else {
             throw new RuntimeException("Evaluación con ID: " + id + " no se encuentra.");
@@ -78,11 +75,9 @@ public class EvaluacionService {
         Evaluacion evaluacion = evaluacionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evaluacion con ID: " + id + " no se encuentra."));
     
-        // Actualiza los campos de la evaluacion
         evaluacion.setEvalFechaInicio(evaluacionActualizada.getEvalFechaInicio());
         evaluacion.setEval_fecha_Fin(evaluacionActualizada.getEvalFechaFin());
         evaluacion.setPerId(evaluacionActualizada.getPerId());
-        // Añade más campos según sea necesario
     
         return evaluacionRepository.save(evaluacion);
     }

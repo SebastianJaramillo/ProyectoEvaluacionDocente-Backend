@@ -66,6 +66,11 @@ public class DocenteController {
         return ResponseEntity.ok().body(this.docenteFuncionService.findByFuncion(id));
     }
 
+    @GetMapping("/funciones/director/{id}")
+    public ResponseEntity<List<DocenteFuncion>> findByDirector(@PathVariable String id) {
+        return ResponseEntity.ok().body(this.docenteFuncionService.findByContainingFuncion(id));
+    }
+
     @PostMapping("/funcion/registro")
     public ResponseEntity<DocenteFuncion> addDocenteFuncion(@RequestBody DocenteFuncion docenteFuncion) {
         return ResponseEntity.ok().body(this.docenteFuncionService.addDocenteFuncion(docenteFuncion));
