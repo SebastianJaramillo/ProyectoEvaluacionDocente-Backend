@@ -79,7 +79,6 @@ public class DocenteFuncionService {
     public void updateFuncion(String id) {
         Iterable<DocenteFuncion> docenteFunciones = this.docenteFuncionRepository.findByDocId(id);
     
-        // Verificar si el iterable tiene elementos
         if (docenteFunciones.iterator().hasNext()) {
             for (DocenteFuncion docenteFuncion : docenteFunciones) {
                 docenteFuncion.setEstado("INACTIVO");
@@ -91,16 +90,11 @@ public class DocenteFuncionService {
     }
 
     public void eliminarByDocId(String docId) {
-        // Primero, encuentra todas las DocenteFuncion asociadas con el docId proporcionado.
         Iterable<DocenteFuncion> docenteFunciones = docenteFuncionRepository.findByDocId(docId);
 
-        // Verifica si hay docenteFunciones para eliminar
         if (docenteFunciones.iterator().hasNext()) {
-            // Elimina cada una de las DocenteFuncion encontradas
             docenteFuncionRepository.deleteAll(docenteFunciones);
         } else {
-            // Opcionalmente, puedes decidir lanzar una excepción si no se encuentran entidades,
-            // o simplemente no hacer nada si prefieres que la operación sea idempotente.
             throw new RuntimeException("No se encontraron funciones para el docente con ID: " + docId);
         }
     }

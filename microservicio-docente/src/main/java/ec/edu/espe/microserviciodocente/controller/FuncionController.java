@@ -77,7 +77,6 @@ public class FuncionController {
             docenteFuncionService.eliminarByDocId(docId);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
-            // Lanza una excepción HTTP 404 o 400 según corresponda
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
