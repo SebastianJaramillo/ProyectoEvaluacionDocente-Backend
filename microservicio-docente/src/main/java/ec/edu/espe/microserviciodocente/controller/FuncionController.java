@@ -1,15 +1,17 @@
 package ec.edu.espe.microserviciodocente.controller;
 
 import java.util.List;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import ec.edu.espe.microserviciodocente.model.DocenteFuncion;
 import ec.edu.espe.microserviciodocente.model.Funcion;
@@ -62,5 +64,26 @@ public class FuncionController {
     @GetMapping("/rol/{rol}")
     public ResponseEntity<List<Funcion>> findByRol(@PathVariable String rol) {
         return ResponseEntity.ok().body(this.funcionService.findByRol(rol));
+    }
+
+    @GetMapping("/docentefuncion/listar")
+    public ResponseEntity<Iterable<DocenteFuncion>> listDoncenteFuncion() {
+        return ResponseEntity.ok().body(docenteFuncionService.listAll());
+    }
+
+    @DeleteMapping("/eliminarPorDocId/{docId}")
+    public ResponseEntity<?> eliminarPorDocId(@PathVariable String docId) {
+        try {
+            docenteFuncionService.eliminarByDocId(docId);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            // Lanza una excepción HTTP 404 o 400 según corresponda
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
+    }
+
+    @PostMapping("/DocenteFuncion/registro")
+    public ResponseEntity<DocenteFuncion> save(@RequestBody DocenteFuncion funcion) {
+        return ResponseEntity.ok().body(docenteFuncionService.save(funcion));
     }
 }

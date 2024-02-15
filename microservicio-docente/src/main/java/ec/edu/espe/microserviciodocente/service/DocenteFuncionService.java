@@ -33,10 +33,6 @@ public class DocenteFuncionService {
         return docenteFuncionRepository.findByFuncIdAndEstado(funcId, "ACTIVO");
     }
 
-    public List<DocenteFuncion> findByContainingFuncion(String funcId) {
-        return docenteFuncionRepository.findByFuncIdEndingWithAndEstado(funcId, "ACTIVO");
-    }
-
     public DocenteFuncion addDocenteFuncion(DocenteFuncion docenteFuncion) {
         Optional<Funcion> optionalFuncion = this.funcionRepository.findById(docenteFuncion.getFuncId());
 
@@ -71,4 +67,43 @@ public class DocenteFuncionService {
             throw new RuntimeException("No se pudo encontrar docente con esa funcion.");
         }
     }
+
+    public Iterable<DocenteFuncion> listAll() {
+        return docenteFuncionRepository.findAll();
+    }
+
+    public void updateFuncion(String id) {
+        Iterable<DocenteFuncion> docenteFunciones = this.docenteFuncionRepository.findByDocId(id);
+    
+        // Verificar si el iterable tiene elementos
+        if (docenteFunciones.iterator().hasNext()) {
+            for (DocenteFuncion docenteFuncion : docenteFunciones) {
+                docenteFuncion.setEstado("INACTIVO");
+                this.docenteFuncionRepository.save(docenteFuncion);
+            }
+        } else {
+            throw new RuntimeException("No se pudo encontrar docente con esa funcion.");
+        }
+    }
+
+    public void eliminarByDocId(String docId) {
+        // Primero, encuentra todas las DocenteFuncion asociadas con el docId proporcionado.
+        Iterable<DocenteFuncion> docenteFunciones = docenteFuncionRepository.findByDocId(docId);
+
+        // Verifica si hay docenteFunciones para eliminar
+        if (docenteFunciones.iterator().hasNext()) {
+            // Elimina cada una de las DocenteFuncion encontradas
+            docenteFuncionRepository.deleteAll(docenteFunciones);
+        } else {
+            // Opcionalmente, puedes decidir lanzar una excepción si no se encuentran entidades,
+            // o simplemente no hacer nada si prefieres que la operación sea idempotente.
+            throw new RuntimeException("No se encontraron funciones para el docente con ID: " + docId);
+        }
+    }
+
+    public DocenteFuncion save(DocenteFuncion funcion) {
+        return docenteFuncionRepository.save(funcion);
+    }
+
+
 }

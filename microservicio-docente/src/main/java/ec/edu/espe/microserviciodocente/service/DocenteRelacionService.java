@@ -58,4 +58,15 @@ public class DocenteRelacionService {
                     "No se puede agregar el mismo docente como Jefe superior y docente");
         }
     }
+
+    public DocenteRelacion updateJefe(Long id, String idJefe) {
+        Optional<DocenteRelacion> optionalDocenteRelacion = this.docenteRelacionRepository.findById(id);
+
+        if (optionalDocenteRelacion.isPresent()) {
+            optionalDocenteRelacion.get().setDocIdJefe(idJefe);
+            return this.docenteRelacionRepository.save(optionalDocenteRelacion.get());
+        } else {
+            throw new RuntimeException("No se pudo encontrar docente con esa funcion.");
+        }
+    }
 }
