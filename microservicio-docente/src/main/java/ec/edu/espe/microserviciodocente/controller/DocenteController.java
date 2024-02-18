@@ -76,10 +76,11 @@ public class DocenteController {
         return ResponseEntity.ok().body(this.docenteFuncionService.addDocenteFuncion(docenteFuncion));
     }
 
-    @PutMapping("/funcion/desactivar")
-    public ResponseEntity<DocenteFuncion> desactivarDocenteFuncion(@RequestBody Long id) {
+    @GetMapping("/funcion/desactivar/{id}")
+    public ResponseEntity<DocenteFuncion> desactivarDocenteFuncion(@PathVariable Long id) {
         return ResponseEntity.ok().body(this.docenteFuncionService.updateEstado(id));
     }
+
 
     // RELACION JEFE
     @GetMapping("/relacion/jefe/{id}")
@@ -124,4 +125,13 @@ public class DocenteController {
     }
 
     
+    @PostMapping("/cambiarEstado/Coordinador")
+    public ResponseEntity<DocenteFuncion> inactivarDocenteFuncion(@RequestBody DocenteFuncion docenteFuncion) {
+        return ResponseEntity.ok().body(this.docenteFuncionService.inactivarDocenteFuncion(docenteFuncion));
+    }
+
+    @GetMapping("/buscarDocenteRelacion/{id}")
+    public ResponseEntity<DocenteRelacion> findById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(docenteRelacionService.findById(id));
+    }
 }

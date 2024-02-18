@@ -69,4 +69,15 @@ public class DocenteRelacionService {
             throw new RuntimeException("No se pudo encontrar docente con esa funcion.");
         }
     }
+
+    public DocenteRelacion findById(Long id) {
+        Optional<DocenteRelacion> optionalDocente = docenteRelacionRepository.findById(id);
+
+        if (optionalDocente.isPresent()) {
+            return optionalDocente.get();
+        }
+
+        throw new RuntimeException("Docente con ID: " + id + " no se encuentra.");
+    }
+
 }

@@ -40,24 +40,27 @@ public class DocenteFuncionService {
     public DocenteFuncion addDocenteFuncion(DocenteFuncion docenteFuncion) {
         Optional<Funcion> optionalFuncion = this.funcionRepository.findById(docenteFuncion.getFuncId());
 
-        if (optionalFuncion.isPresent()) {
-            Optional<Docente> optionalDocente = this.docenteRepository.findById(docenteFuncion.getDocId());
-
-            if (optionalDocente.isPresent()) {
-                Optional<DocenteFuncion> optionalDocenteFuncion = this.docenteFuncionRepository
-                        .findByDocIdAndFuncId(docenteFuncion.getDocId(), docenteFuncion.getFuncId());
-                if (!optionalDocenteFuncion.isPresent()) {
-                    docenteFuncion.setEstado("ACTIVO");
-                    return this.docenteFuncionRepository.save(docenteFuncion);
-                } else {
-                    throw new RuntimeException("Docente con ID: " + docenteFuncion.getDocId()
-                            + " ya ha sido asignado a la funcion: " + docenteFuncion.getFuncId());
-                }
-            } else {
-                throw new RuntimeException("Docente con ID: " + docenteFuncion.getDocId() + " no existe.");
-            }
-        } else {
+        if (!optionalFuncion.isPresent()) {
             throw new RuntimeException("Funcion con ID: " + docenteFuncion.getFuncId() + " no existe.");
+        }
+    
+        Optional<Docente> optionalDocente = this.docenteRepository.findById(docenteFuncion.getDocId());
+        if (!optionalDocente.isPresent()) {
+            throw new RuntimeException("Docente con ID: " + docenteFuncion.getDocId() + " no existe.");
+        }
+    
+        Optional<DocenteFuncion> optionalDocenteFuncion = this.docenteFuncionRepository
+                .findByDocIdAndFuncId(docenteFuncion.getDocId(), docenteFuncion.getFuncId());
+    
+        if (optionalDocenteFuncion.isPresent()) {
+            // Si la asignación ya existe, simplemente actualiza su estado a ACTIVO.
+            DocenteFuncion existenteDocenteFuncion = optionalDocenteFuncion.get();
+            existenteDocenteFuncion.setEstado("ACTIVO");
+            return this.docenteFuncionRepository.save(existenteDocenteFuncion);
+        } else {
+            // Si la asignación no existe, establece el estado a ACTIVO y guarda la nueva asignación.
+            docenteFuncion.setEstado("ACTIVO");
+            return this.docenteFuncionRepository.save(docenteFuncion);
         }
     }
 
@@ -102,6 +105,37 @@ public class DocenteFuncionService {
     public DocenteFuncion save(DocenteFuncion funcion) {
         return docenteFuncionRepository.save(funcion);
     }
+    public DocenteFuncion inactivarDocenteFuncion(DocenteFuncion docenteFuncion) {
+        // Extraer docId y funcId del objeto docenteFuncion
+        String docId = docenteFuncion.getDocId();
+        String funcId = docenteFuncion.getFuncId();
+    
+        // Intenta encontrar la relación DocenteFuncion existente con esos IDs
+        Optional<DocenteFuncion> optionalDocenteFuncion = this.docenteFuncionRepository.findByDocIdAndFuncId(docId, funcId);
+    
+        // Si la relación existe, actualiza su estado a "INACTIVO" y guarda los cambios.
+        if (optionalDocenteFuncion.isPresent()) {
+            DocenteFuncion existenteDocenteFuncion = optionalDocenteFuncion.get();
+            existenteDocenteFuncion.setEstado("INACTIVO");
+            return this.docenteFuncionRepository.save(existenteDocenteFuncion);
+        } else {
+            // Si no se encuentra la relación, lanza una excepción.
+            throw new RuntimeException("No se encontró la relación entre Docente con ID: " + docId
+                    + " y Función con ID: " + funcId + ".");
+        }
+    }
 
+    public Iterable<DocenteFuncion> listAllActive() {
+        return docenteFuncionRepository.findByEstado("ACTIVO");
+    }
+    public DocenteFuncion findById(Long id) {
+        Optional<DocenteFuncion> optionalDocente = docenteFuncionRepository.findById(id);
+
+        if (optionalDocente.isPresent()) {
+            return optionalDocente.get();
+        }
+
+        throw new RuntimeException("Docente con ID: " + id + " no se encuentra.");
+    }
 
 }
