@@ -15,6 +15,8 @@ public interface DocenteFuncionRepository extends CrudRepository<DocenteFuncion,
     Optional<DocenteFuncion> findByDocIdAndFuncId(String docId, String funcId);
 
     List<DocenteFuncion> findByDocId(String docId);
+    
+    List<DocenteFuncion> findByEstado(String estado);
 
     List<DocenteFuncion> findByFuncIdEndingWithAndEstado(String funcId, String estado);
 }

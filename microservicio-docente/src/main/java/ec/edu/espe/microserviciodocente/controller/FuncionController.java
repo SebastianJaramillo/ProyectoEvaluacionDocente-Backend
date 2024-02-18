@@ -85,4 +85,13 @@ public class FuncionController {
     public ResponseEntity<DocenteFuncion> save(@RequestBody DocenteFuncion funcion) {
         return ResponseEntity.ok().body(docenteFuncionService.save(funcion));
     }
+    @GetMapping("/listarDocentes")
+    public ResponseEntity<Iterable<DocenteFuncion>> listAllActive() {
+        return ResponseEntity.ok().body(this.docenteFuncionService.listAllActive());
+    }
+
+    @GetMapping("/buscarDocenteFuncion/{id}")
+    public ResponseEntity<DocenteFuncion> findById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(docenteFuncionService.findById(id));
+    }
 }
