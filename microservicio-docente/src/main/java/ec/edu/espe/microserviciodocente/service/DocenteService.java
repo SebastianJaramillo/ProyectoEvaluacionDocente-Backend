@@ -1,5 +1,6 @@
 package ec.edu.espe.microserviciodocente.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class DocenteService {
         return docenteRepository.save(docente);
     }
 
-    public Iterable<Docente> listAll() {
-        return docenteRepository.findAll();
+    public List<Docente> listAll() {
+        return docenteRepository.findAllByOrderByApellidos();
     }
 
     public Docente findById(String id) {

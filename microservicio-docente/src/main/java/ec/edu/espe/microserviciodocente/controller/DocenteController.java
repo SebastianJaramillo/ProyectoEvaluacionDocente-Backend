@@ -41,7 +41,7 @@ public class DocenteController {
 
     // DOCENTE
     @GetMapping("/listar")
-    public ResponseEntity<Iterable<Docente>> listAll() {
+    public ResponseEntity<List<Docente>> listAll() {
         return ResponseEntity.ok().body(docenteService.listAll());
     }
 
