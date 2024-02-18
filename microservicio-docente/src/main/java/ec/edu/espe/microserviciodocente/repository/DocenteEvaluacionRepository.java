@@ -1,7 +1,6 @@
 package ec.edu.espe.microserviciodocente.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,5 +12,5 @@ public interface DocenteEvaluacionRepository extends CrudRepository<DocenteEvalu
 
     List<DocenteEvaluacion> findByDocEvaluado(String docEvaluado);
 
-    Optional<DocenteEvaluacion> findByDocEvaluadorAndDocEvaluadoAndEvalId(String docEvaluador, String docEvaluado, Long evalId);
+    List<DocenteEvaluacion> findByDocEvaluadorAndDocEvaluadoAndEvalId(String docEvaluador, String docEvaluado, Long evalId);
 }

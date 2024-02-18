@@ -22,6 +22,10 @@ public class DocenteEvaluacion {
 
     @Column(name = "doc_evaluado", nullable = false)
     private String docEvaluado;
+    
+    @Column(name = "doc_actividad")
+    private String actividad;
+
 
     @Column(name = "eval_id")
     private Long evalId;
@@ -41,10 +45,11 @@ public class DocenteEvaluacion {
     }
 
     public DocenteEvaluacion(Long id, String docEvaluador, String docEvaluado, Long evalId, String estado,
-            Docente evaluador, Docente evaluado) {
+            Docente evaluador, Docente evaluado, String actividad) {
         this.id = id;
         this.docEvaluador = docEvaluador;
         this.docEvaluado = docEvaluado;
+        this.actividad = actividad;
         this.evalId = evalId;
         this.estado = estado;
         this.evaluador = evaluador;
@@ -105,6 +110,14 @@ public class DocenteEvaluacion {
 
     public void setEvaluado(Docente evaluado) {
         this.evaluado = evaluado;
+    }
+
+    public String getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(String actividad) {
+        this.actividad = actividad;
     }
 
     @Override

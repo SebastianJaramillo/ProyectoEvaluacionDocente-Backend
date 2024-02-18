@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -110,7 +109,7 @@ public class DocenteController {
     }
 
     @GetMapping("/evaluacion/{docEvaluador}/{docEvaluado}/{evalId}")
-    public ResponseEntity<DocenteEvaluacion> findByEvaluacion(@PathVariable String docEvaluador, @PathVariable String docEvaluado, @PathVariable Long evalId) {
+    public ResponseEntity<List<DocenteEvaluacion>> findByEvaluacion(@PathVariable String docEvaluador, @PathVariable String docEvaluado, @PathVariable Long evalId) {
         return ResponseEntity.ok().body(this.docenteEvaluacionService.findByEvaluacion(docEvaluador, docEvaluado, evalId));
     }
 

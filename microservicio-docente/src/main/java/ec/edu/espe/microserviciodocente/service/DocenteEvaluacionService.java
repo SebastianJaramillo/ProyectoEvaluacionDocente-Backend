@@ -29,9 +29,8 @@ public class DocenteEvaluacionService {
         return docenteEvaluacionRepository.findByDocEvaluado(docEvaluado);
     }
 
-    public DocenteEvaluacion findByEvaluacion(String docEvaluador, String docEvaluado, Long evalId) {
-        return docenteEvaluacionRepository.findByDocEvaluadorAndDocEvaluadoAndEvalId(docEvaluador, docEvaluado, evalId)
-                .get();
+    public List<DocenteEvaluacion> findByEvaluacion(String docEvaluador, String docEvaluado, Long evalId) {
+        return docenteEvaluacionRepository.findByDocEvaluadorAndDocEvaluadoAndEvalId(docEvaluador, docEvaluado, evalId);
     }
 
     public DocenteEvaluacion save(DocenteEvaluacion docenteEvaluacion) {

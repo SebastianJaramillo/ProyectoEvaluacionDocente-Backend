@@ -24,8 +24,13 @@ public class PeriodoController {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<Iterable<Periodo>> listAll() {
+    public ResponseEntity<Iterable<Periodo>> listAllActivo() {
         return ResponseEntity.ok().body(this.periodoService.findByEstado("ACTIVO"));
+    }
+
+    @GetMapping
+    public ResponseEntity<Iterable<Periodo>> listAll() {
+        return ResponseEntity.ok().body(this.periodoService.listAll());
     }
 
     @GetMapping("/buscar/{id}")
