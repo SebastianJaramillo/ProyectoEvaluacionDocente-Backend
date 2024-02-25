@@ -30,7 +30,7 @@ public class DocenteEvaluacion {
     @Column(name = "eval_id")
     private Long evalId;
 
-    @Column(name = "eval_estado", nullable = false, length = 20)
+    @Column(name = "eval_estado", nullable = false, length = 10)
     private String estado;
 
     @ManyToOne
