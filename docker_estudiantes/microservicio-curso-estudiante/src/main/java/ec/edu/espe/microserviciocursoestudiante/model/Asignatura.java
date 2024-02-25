@@ -15,7 +15,7 @@ public class Asignatura {
 	@Column(name = "asig_id", nullable = false, length = 5)
 	private Long id;
 	
-	@Column(name = "asig_nombre", nullable = false, length = 100)
+	@Column(name = "asig_nombre", nullable = false, length = 50)
 	private String nombre;
 	
 	public Asignatura() {
