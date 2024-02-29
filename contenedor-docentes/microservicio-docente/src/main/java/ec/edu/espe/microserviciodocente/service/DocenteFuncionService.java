@@ -41,6 +41,10 @@ public class DocenteFuncionService {
         return docenteFuncionRepository.findByFuncIdEndingWith(funcId);
     }
 
+    public List<DocenteFuncion> findByContainingFuncionStart(String docId) {
+        return docenteFuncionRepository.findByFuncIdStartingWithAndEstadoAndDocId("DIR", "ACTIVO", docId);
+    }
+
     public DocenteFuncion addDocenteFuncion(DocenteFuncion docenteFuncion) {
         Optional<Funcion> optionalFuncion = this.funcionRepository.findById(docenteFuncion.getFuncId());
 
