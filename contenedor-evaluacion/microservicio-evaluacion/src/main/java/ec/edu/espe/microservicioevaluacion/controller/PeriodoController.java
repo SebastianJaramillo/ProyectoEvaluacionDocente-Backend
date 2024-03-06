@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ec.edu.espe.microservicioevaluacion.domain.Periodo;
+import ec.edu.espe.microservicioevaluacion.model.Periodo;
 import ec.edu.espe.microservicioevaluacion.service.PeriodoService;
 
 @CrossOrigin
@@ -43,5 +44,8 @@ public class PeriodoController {
         return ResponseEntity.ok().body(this.periodoService.save(periodo));
     }
 
-    
+    @PutMapping("/estado/{id}")
+    public ResponseEntity<Periodo> updateEstado(@PathVariable Long id, @RequestBody String estado) {
+        return ResponseEntity.ok().body(this.periodoService.updateEstado(id, estado));
+    }
 }

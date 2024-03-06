@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ec.edu.espe.microservicioevaluacion.domain.Evaluacion;
+import ec.edu.espe.microservicioevaluacion.model.Evaluacion;
 import ec.edu.espe.microservicioevaluacion.service.EvaluacionService;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -40,29 +40,34 @@ public class EvaluacionController {
         return ResponseEntity.ok().body(evaluacionService.save(evaluacion));
     }
 
-    @GetMapping("/buscar/fechas")
-    public ResponseEntity<Evaluacion> findByFecha() {
-        return ResponseEntity.ok().body(evaluacionService.findByFecha());
+    @GetMapping("/buscar/fechas/{perId}")
+    public ResponseEntity<Evaluacion> findByFecha(@PathVariable Long perId) {
+        return ResponseEntity.ok().body(evaluacionService.findByFecha(perId));
+    }
+
+    @GetMapping("/periodo/{perId}")
+    public ResponseEntity<Evaluacion> findByPeriodo(@PathVariable Long perId) {
+        return ResponseEntity.ok().body(evaluacionService.findByPeriodo(perId));
     }
 
     @PutMapping("/estado/{id}")
-    public  ResponseEntity<Evaluacion> updateEstado(@PathVariable String id, @RequestBody String estado) {
+    public ResponseEntity<Evaluacion> updateEstado(@PathVariable String id, @RequestBody String estado) {
 
         return ResponseEntity.ok().body(evaluacionService.updateEstado(Long.parseLong(id), estado));
-  
+
     }
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminarById(@PathVariable String id) {
         this.evaluacionService.eliminarById(Long.parseLong(id));
-         return ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();
 
     }
-       
+
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<Evaluacion> updateEvaluacion(@PathVariable Long id, @RequestBody Evaluacion evaluacion) {
-    Evaluacion evaluacionActualizada = evaluacionService.updateEvaluacion(id, evaluacion);
-    return ResponseEntity.ok().body(evaluacionActualizada);
-}
-    
+        Evaluacion evaluacionActualizada = evaluacionService.updateEvaluacion(id, evaluacion);
+        return ResponseEntity.ok().body(evaluacionActualizada);
+    }
+
 }

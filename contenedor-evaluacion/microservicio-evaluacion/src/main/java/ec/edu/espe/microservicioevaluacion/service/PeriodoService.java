@@ -2,9 +2,10 @@ package ec.edu.espe.microservicioevaluacion.service;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
-import ec.edu.espe.microservicioevaluacion.domain.Periodo;
+import ec.edu.espe.microservicioevaluacion.model.Periodo;
 import ec.edu.espe.microservicioevaluacion.repository.PeriodoRepository;
 
 @Service
@@ -37,5 +38,19 @@ public class PeriodoService {
 
     public List<Periodo> findByEstado(String estado) {
         return this.periodoRepository.findByEstado(estado);
+    }
+
+    public Periodo updateEstado(Long id, String nuevoEstado) {
+        Optional<Periodo> periodoOptional = this.periodoRepository.findById(id);
+
+        if (periodoOptional.isPresent()) {
+            Periodo periodo = periodoOptional.get();
+
+            periodo.setEstado(nuevoEstado);
+
+            return this.periodoRepository.save(periodo);
+        } else {
+            throw new RuntimeException("Periodo con ID: " + id + " no se encuentra.");
+        }
     }
 }

@@ -4,9 +4,12 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import ec.edu.espe.microservicioevaluacion.domain.Evaluacion;
+import ec.edu.espe.microservicioevaluacion.model.Evaluacion;
+
 
 public interface EvaluacionRepository extends CrudRepository<Evaluacion, Long>{
 
-    Optional<Evaluacion> findByEvalFechaInicioLessThanEqualAndEvalFechaFinGreaterThanEqual(Date fechaInicio, Date fechaFin);
+    Optional<Evaluacion> findByEvalFechaInicioLessThanEqualAndEvalFechaFinGreaterThanEqualAndPerId(Date fechaInicio, Date fechaFin, Long perId);
+
+    Optional<Evaluacion> findByPerId(Long perId);
 }

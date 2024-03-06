@@ -1,7 +1,7 @@
 package ec.edu.espe.microservicioevaluacion.repository;
 import org.springframework.data.repository.CrudRepository;
 
-import ec.edu.espe.microservicioevaluacion.domain.Periodo;
+import ec.edu.espe.microservicioevaluacion.model.Periodo;
 import java.util.List;
 
 

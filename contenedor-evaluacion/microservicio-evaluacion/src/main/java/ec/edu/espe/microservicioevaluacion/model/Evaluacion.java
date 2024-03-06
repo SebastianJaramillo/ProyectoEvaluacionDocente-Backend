@@ -1,16 +1,16 @@
-package ec.edu.espe.microservicioevaluacion.domain;
-
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+package ec.edu.espe.microservicioevaluacion.model;
 
 import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name = "evaluacion")
@@ -32,6 +32,9 @@ public class Evaluacion {
 	@Column(name = "eval_estado")
 	private String estado;
 
+	@Version
+	private Long version;
+
 	@ManyToOne
 	@JoinColumn(name = "per_id", insertable = false, updatable = false)
 	private Periodo periodo;
@@ -39,13 +42,14 @@ public class Evaluacion {
 	public Evaluacion() {
 	}
 
-	public Evaluacion(Long id, Long perId, Date evalFechaInicio, Date evalFechaFin, String estado,
+	public Evaluacion(Long id, Long perId, Date evalFechaInicio, Date evalFechaFin, String estado, Long version,
 			Periodo periodo) {
 		this.id = id;
 		this.perId = perId;
 		this.evalFechaInicio = evalFechaInicio;
 		this.evalFechaFin = evalFechaFin;
 		this.estado = estado;
+		this.version = version;
 		this.periodo = periodo;
 	}
 
@@ -95,6 +99,18 @@ public class Evaluacion {
 
 	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
+	}
+
+	public void setEvalFechaFin(Date evalFechaFin) {
+		this.evalFechaFin = evalFechaFin;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	@Override

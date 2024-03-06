@@ -1,4 +1,4 @@
-package ec.edu.espe.microservicioevaluacion.domain;
+package ec.edu.espe.microservicioevaluacion.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;

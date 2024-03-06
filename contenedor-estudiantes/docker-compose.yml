@@ -1,0 +1,63 @@
+version: '3'
+
+name: contenedor-estudiantes
+
+services:
+  db:
+    image: oracle/database:21.3.0-ee
+    container_name: curso_estudiante_db
+    hostname: system
+    environment:
+      ORACLE_SID: DBDOC
+      ORACLE_PDB: DBPDOC
+      ORACLE_PWD: Espe.2023
+      ORACLE_CHARACTERSET: AL32UTF8
+      ORA_SDTZ: Ecuador
+    ports:
+      - "1521:1521"
+    tty: true
+    privileged: true
+    networks:
+      - proyecto-docente-network
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+
+  curso_estudiante:
+    image: microservicio-curso-estudiante:1.1
+    container_name: microservicio_curso_estudiante
+    ports:
+      - "8080:8080"
+    environment:
+      ORACLE_SID: DBDOC # Container database name
+      ORACLE_PDB: DBPDOC # Pluggable database name
+      ORACLE_PWD: Espe.2023
+      ORACLE_CHARACTERSET: AL32UTF8
+      ORA_SDTZ: Ecuador
+    depends_on:
+      - db
+    networks:
+      - proyecto-docente-network
+  
+  autenticacion:
+    image: microservicio-autenticacion:1.1
+    container_name: microservicio_autenticacion
+    ports:
+      - "8081:8081"
+    environment:
+      ORACLE_SID: DBDOC # Container database name
+      ORACLE_PDB: DBPDOC # Pluggable database name
+      ORACLE_PWD: Espe.2023
+      ORACLE_CHARACTERSET: AL32UTF8
+      ORA_SDTZ: Ecuador
+    depends_on:
+      - db
+    networks:
+      - proyecto-docente-network
+
+networks:
+  proyecto-docente-network:
+    driver: bridge
+
+volumes:
+  oracle-data:
+    driver: local
