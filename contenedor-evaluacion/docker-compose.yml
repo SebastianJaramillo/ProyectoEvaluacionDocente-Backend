@@ -4,7 +4,7 @@ name: contenedor-evaluacion
 
 services:
   db:
-    image: oracle/database:21.3.0-ee
+    image: hsjaramillo3/oracledb:21.3.0
     container_name: evaluacion_db
     hostname: system
     environment:
