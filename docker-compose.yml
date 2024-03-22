@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: oracle/database:21.3.0-ee
+    image: hsjaramillo3/oracledb:21.3.0
     container_name: db_proyecto_docente
     hostname: system
     domainname: evaluacion-docente.com
